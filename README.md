@@ -1,6 +1,14 @@
 A message queue API for PHP
 =================
 
+[![Latest Stable Version](https://poser.pugx.org/romeOz/rock-mq/v/stable.svg)](https://packagist.org/packages/romeOz/rock-mq)
+[![Total Downloads](https://poser.pugx.org/romeOz/rock-mq/downloads.svg)](https://packagist.org/packages/romeOz/rock-mq)
+[![Build Status](https://travis-ci.org/romeOz/rock-mq.svg?branch=master)](https://travis-ci.org/romeOz/rock-mq)
+[![Coverage Status](https://coveralls.io/repos/romeOz/rock-mq/badge.svg?branch=master)](https://coveralls.io/r/romeOz/rock-mq?branch=master)
+[![License](https://poser.pugx.org/romeOz/rock-mq/license.svg)](https://packagist.org/packages/romeOz/rock-mq)
+
+[Rock MQ on Packagist](https://packagist.org/packages/romeOz/rock-mq)
+
 Features
 -------------------
 
