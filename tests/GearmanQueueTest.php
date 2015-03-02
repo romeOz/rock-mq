@@ -1,6 +1,6 @@
 <?php
 
-namespace rockunit\extensions\mq;
+namespace rockunit;
 
 
 use rock\mq\GearmanQueue;
