@@ -22,14 +22,14 @@ Installation
 
 From the Command Line:
 
-```composer require romeoz/rock-mq:*```
+```composer require romeoz/rock-mq:*@dev```
 
 In your composer.json:
 
 ```json
 {
     "require": {
-        "romeoz/rock-mq": "*"
+        "romeoz/rock-mq": "*@dev"
     }
 }
 ```
@@ -66,6 +66,8 @@ php tests/data/mq/rabbit/pub_server.php &
 Code:
 
 ```php
+use rock\mq\RabbitQueue;
+
 $rabbit = new RabbitQueue();
 $rabbit->blocking = false;
 $rabbit->type = 'direct';
