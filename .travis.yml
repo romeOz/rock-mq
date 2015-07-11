@@ -20,11 +20,16 @@ matrix:
 
 addons:
   apt:
+    sources:
+      - gearman-developers
     packages:
       - autoconf
       - pkg-config
       - libzmq3-dev
       - libpgm-5.1-0
+      - libgearman-dev
+      - gearmand
+      - gearman-job-server
 
 services:
   - rabbitmq
@@ -35,7 +40,7 @@ install:
   - composer require satooshi/php-coveralls:*@dev
   - chmod -R +x tests/data/travis/
   - tests/data/travis/zmq-setup.sh
-#  - tests/data/travis/gearman-setup.sh
+  - tests/data/travis/gearman-setup.sh
   - tests/data/travis/rabbitmq-setup.sh
 
 script:
@@ -44,7 +49,7 @@ script:
     if (php --version | grep -i HipHop > /dev/null); then
       vendor/bin/phpunit --verbose --exclude-group php,mq
     else
-      vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml --exclude-group hhvm,gearman
+      vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml --exclude-group hhvm
     fi
 
 after_script:
