@@ -149,5 +149,3 @@ class GearmanQueue extends Queue implements QueueInterface
         return $client;
     }
 }
-
-
