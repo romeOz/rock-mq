@@ -3,7 +3,7 @@
 namespace rock\mq;
 
 
-interface QueueInterface 
+interface QueueInterface
 {
     /**
      * Determines if message can be sent.
@@ -62,7 +62,7 @@ interface QueueInterface
     /**
      * Subscribes a recipient to this queue.
      *
-     * @param string  $topic - a subscription to a topic
+     * @param string $topic - a subscription to a topic
      * @param int $limit - the number of iterations, defaults to -1 which means no limit
      * @param string $message - send message
      * @return

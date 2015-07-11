@@ -10,7 +10,7 @@ class GearmanQueue extends Queue implements QueueInterface
     const PRIORITY_LOW = 2;
     const PRIORITY_HIGH = 3;
 
-    public $dns= '127.0.0.1:4730';
+    public $dns = '127.0.0.1:4730';
 
     public $priority = self::PRIORITY_NORMAL;
 
@@ -36,7 +36,7 @@ class GearmanQueue extends Queue implements QueueInterface
                 break;
         }
         // Check the return code - what other codes are there and what do they mean?
-        if($client->returnCode() != GEARMAN_SUCCESS){
+        if ($client->returnCode() != GEARMAN_SUCCESS) {
             throw new MQException('Bad return code: ' . $client->returnCode());
         }
 

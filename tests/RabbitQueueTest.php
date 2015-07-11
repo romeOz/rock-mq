@@ -42,8 +42,8 @@ class RabbitQueueTest extends \PHPUnit_Framework_TestCase
         $message = null;
         $rabbit->properties['correlation_id'] = $corr_id;
         $rabbit->properties['delivery_mode'] = 2;
-        $callback = function(AMQPMessage $msg) use (&$message, $corr_id) {
-            if($msg->get('correlation_id') == $corr_id) {
+        $callback = function (AMQPMessage $msg) use (&$message, $corr_id) {
+            if ($msg->get('correlation_id') == $corr_id) {
                 $message = $msg->body;
             }
         };
@@ -70,12 +70,12 @@ class RabbitQueueTest extends \PHPUnit_Framework_TestCase
         $rabbit->type = 'direct';
         $rabbit->exchange = 'direct_test';
         $this->assertSame('Hi! I am server: foo test', $rabbit->subscribe('foo', -1, 'test'));
-        $this->assertSame('Hi! I am server: bar', $rabbit->subscribe('bar', 2,'test'));
+        $this->assertSame('Hi! I am server: bar', $rabbit->subscribe('bar', 2, 'test'));
         //unknown
-        $this->assertNull($rabbit->subscribe('unknown', 2,'test'));
+        $this->assertNull($rabbit->subscribe('unknown', 2, 'test'));
         //blocking
         $rabbit->blocking = true;
         $this->assertSame('Hi! I am server: foo test', $rabbit->subscribe('foo', -1, 'test'));
-        $this->assertSame('Hi! I am server: bar', $rabbit->subscribe('bar', 2,'test'));
+        $this->assertSame('Hi! I am server: bar', $rabbit->subscribe('bar', 2, 'test'));
     }
 }

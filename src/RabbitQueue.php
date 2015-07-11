@@ -41,7 +41,7 @@ class RabbitQueue extends Queue implements QueueInterface
         list($connection, $channel) = $this->connection();
         $channel->queue_declare($this->id, false, true, false, false);
         register_shutdown_function(
-            function(AMQPChannel $channel, AMQPConnection $connection){
+            function (AMQPChannel $channel, AMQPConnection $connection) {
                 $channel->close();
                 $connection->close();
             },
@@ -73,7 +73,7 @@ class RabbitQueue extends Queue implements QueueInterface
         if (!isset($callback)) {
             $id = uniqid();
             $this->properties['correlation_id'] = $id;
-            $callback = function(AMQPMessage $msg) use ($id, &$result){
+            $callback = function (AMQPMessage $msg) use ($id, &$result) {
                 if ($msg->get('correlation_id') == $id) {
                     $result = $msg->body;
                 }
@@ -83,7 +83,7 @@ class RabbitQueue extends Queue implements QueueInterface
         $this->properties['reply_to'] = $queueName;
 
         register_shutdown_function(
-            function(AMQPChannel $channel, AMQPConnection $connection){
+            function (AMQPChannel $channel, AMQPConnection $connection) {
                 $channel->close();
                 $connection->close();
             },
@@ -107,7 +107,7 @@ class RabbitQueue extends Queue implements QueueInterface
             while (count($channel->callbacks) && ($limit == -1 || $count < $limit)) {
                 // add here other sockets that you need to attend
                 $read = [];
-                if(is_resource($connection->getSocket())) {
+                if (is_resource($connection->getSocket())) {
                     $read = [$connection->getSocket()];
                 }
                 $write = null;
@@ -142,7 +142,7 @@ class RabbitQueue extends Queue implements QueueInterface
         $channel->basic_consume($this->id, '', false, false, false, false, $callback);
 
         register_shutdown_function(
-            function(AMQPChannel $channel, AMQPConnection $connection){
+            function (AMQPChannel $channel, AMQPConnection $connection) {
                 $channel->close();
                 $connection->close();
             },
@@ -152,7 +152,7 @@ class RabbitQueue extends Queue implements QueueInterface
 
         if (count($channel->callbacks)) {
             $count = 0;
-            while(count($channel->callbacks) && ($limit == -1 || $count < $limit)) {
+            while (count($channel->callbacks) && ($limit == -1 || $count < $limit)) {
                 $channel->wait();
                 ++$count;
             }
@@ -168,14 +168,14 @@ class RabbitQueue extends Queue implements QueueInterface
         $channel = $connection->channel();
         $channel->exchange_declare($this->exchange, $this->type, false, false, false);
         list($queueName) = $channel->queue_declare("", false, false, true, false);
-        foreach($topics as $topic => $callback) {
+        foreach ($topics as $topic => $callback) {
             $channel->queue_bind($queueName, $this->exchange, $topic);
             $channel->basic_consume($queueName, '', false, false, false, false, $callback);
         }
         $channel->basic_qos(null, 1, null);
         $count = 0;
         if (count($channel->callbacks)) {
-            while($limit == -1 || $count < $limit) {
+            while ($limit == -1 || $count < $limit) {
                 $channel->wait();
                 ++$count;
             }
@@ -200,15 +200,15 @@ class RabbitQueue extends Queue implements QueueInterface
         $result = null;
         $channel->basic_consume(
             $queueName, '', false, false, false, false,
-            function(AMQPMessage $msg) use (&$result, $correlationId){
-                if($msg->get('correlation_id') == $correlationId) {
+            function (AMQPMessage $msg) use (&$result, $correlationId) {
+                if ($msg->get('correlation_id') == $correlationId) {
                     $result = $msg->body;
                 }
             }
         );
 
         register_shutdown_function(
-            function(AMQPChannel $channel, AMQPConnection $connection){
+            function (AMQPChannel $channel, AMQPConnection $connection) {
                 $channel->close();
                 $connection->close();
             },
@@ -235,7 +235,7 @@ class RabbitQueue extends Queue implements QueueInterface
             while ($limit == -1 || $count < $limit) {
                 // add here other sockets that you need to attend
                 $read = [];
-                if(is_resource($connection->getSocket())) {
+                if (is_resource($connection->getSocket())) {
                     $read = [$connection->getSocket()];
                 }
                 $write = null;

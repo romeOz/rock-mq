@@ -44,7 +44,7 @@ class ZeroQueue extends Queue implements QueueInterface
         while ($limit == -1 || $count < $limit) {
             try {
                 if ($socket->send($message, \ZMQ::MODE_DONTWAIT)) {
-                   break;
+                    break;
                 }
             } catch (\ZMQSocketException $e) {
                 throw new MQException($e->getMessage(), [], $e);
@@ -96,7 +96,7 @@ class ZeroQueue extends Queue implements QueueInterface
     /**
      * @inheritdoc
      */
-    public function publish(array $topics, $limit=-1)
+    public function publish(array $topics, $limit = -1)
     {
         $publisher = new \ZMQSocket(new \ZMQContext(), \ZMQ::SOCKET_PUB);
         $publisher->bind($this->dns);
@@ -139,7 +139,7 @@ class ZeroQueue extends Queue implements QueueInterface
                     return $result;
                 }
             } catch (\ZMQSocketException $e) {
-                throw new MQException($e->getMessage(),[], $e);
+                throw new MQException($e->getMessage(), [], $e);
             }
             ++$count;
             sleep($this->timeout);

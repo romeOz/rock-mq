@@ -3,7 +3,6 @@
 namespace rock\mq;
 
 
-
 use rock\events\EventsInterface;
 use rock\events\EventsTrait;
 
