@@ -8,6 +8,9 @@ php:
   - hhvm
   - hhvm-nightly
 
+# faster builds on new travis setup not using sudo
+sudo: false
+
 matrix:
   fast_finish: true
   allow_failures:
@@ -15,7 +18,13 @@ matrix:
     - php: hhvm
     - php: hhvm-nightly
 
-sudo: true
+addons:
+  apt:
+    packages:
+      - autoconf
+      - pkg-config
+      - libzmq3-dev
+      - libpgm-5.1-0
 
 services:
   - rabbitmq
@@ -26,7 +35,7 @@ install:
   - composer require satooshi/php-coveralls:*@dev
   - chmod -R +x tests/data/travis/
   - tests/data/travis/zmq-setup.sh
-  - tests/data/travis/gearman-setup.sh
+#  - tests/data/travis/gearman-setup.sh
   - tests/data/travis/rabbitmq-setup.sh
 
 script:
@@ -35,7 +44,7 @@ script:
     if (php --version | grep -i HipHop > /dev/null); then
       vendor/bin/phpunit --verbose --exclude-group php,mq
     else
-      vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml --exclude-group hhvm
+      vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml --exclude-group hhvm,gearman
     fi
 
 after_script:
