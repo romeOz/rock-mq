@@ -8,9 +8,6 @@ php:
   - hhvm
   - hhvm-nightly
 
-# faster builds on new travis setup not using sudo
-sudo: false
-
 matrix:
   fast_finish: true
   allow_failures:
@@ -20,15 +17,11 @@ matrix:
 
 addons:
   apt:
-    sources:
-      - gearman-developers
     packages:
       - autoconf
       - pkg-config
       - libzmq3-dev
       - libpgm-5.1-0
-      - libgearman-dev
-      - gearman-server
 
 services:
   - rabbitmq
