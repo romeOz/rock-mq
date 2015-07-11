@@ -28,7 +28,7 @@ addons:
       - libzmq3-dev
       - libpgm-5.1-0
       - libgearman-dev
-      - gearman
+      - gearman-server
 
 services:
   - rabbitmq
